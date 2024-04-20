@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  mysqluserdb:
+    image: mysql:8.0
+    container_name: mysql-user-service
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=userdb
+    ports:
+      - "3306:3306"
+
+  server-registry:
+    image: ttran8800/server-registry:latest
+    build: ./server-registry
+    container_name: server-registry
+    ports:
+      - "8761:8761"
+
+  user-service:
+    image: ttran8800/user-service:latest
+    build: ./user-service
+    container_name: user-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqluserdb:3306/userdb?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
+    depends_on:
+      - mysqluserdb
+      - server-registry
+    ports:
+      - "9001:9001"
+
+volumes:
+  mysql-data:
