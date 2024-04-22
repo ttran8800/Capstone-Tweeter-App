@@ -1,0 +1,14 @@
+server:
+  port: 9001
+
+spring:
+  datasource:
+    url: jdbc:mysql://mysqluserdb:3306/userdb?createDatabaseIfNotExist=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    dialect: org.hibernate.dialect.MySQLDialect

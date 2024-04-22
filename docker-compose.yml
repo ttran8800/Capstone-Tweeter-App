@@ -18,6 +18,26 @@ services:
     container_name: server-registry
     ports:
       - "8761:8761"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  config-server:
+    image: ttran8800/config-server:latest 
+    build: ./config-server
+    container_name: config-server
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/actuator/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    ports:
+      - "9000:9000"
+    depends_on:
+      server-registry:
+        condition: service_healthy
 
   user-service:
     image: ttran8800/user-service:latest
@@ -26,8 +46,8 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysqluserdb:3306/userdb?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
     depends_on:
-      - mysqluserdb
-      - server-registry
+      config-server:
+        condition: service_healthy
     ports:
       - "9001:9001"
 
