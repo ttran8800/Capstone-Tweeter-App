@@ -1,5 +1,23 @@
+server:
+  port: 9001
+
 spring:
   application:
     name: USER-SERVICE
-  config:
-    import: "configserver:http://config-server:9000"
+  datasource:
+    url: jdbc:mysql://mysqluserdb:3306/userdb?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    dialect: org.hibernate.dialect.MySQLDialect
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://server-registry:8761/eureka
