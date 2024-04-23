@@ -10,10 +10,15 @@ user-service (eureka client)
 config-server (eureka client)
 
 things to do:
-tweet-service
-tag-service
-tweetAndTag-service
-api-gateway
-kafka-service
-angular front end 
-then finally kube it up
+
+angular front end (currently working on it)
+- home
+- navbar
+- tweet post
+- tweet list
+- tweet reply
+- tweet reply list
+- hash tag
+
+kafka-service (next to last)
+then finally kube it up (last)
