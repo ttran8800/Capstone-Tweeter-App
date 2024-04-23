@@ -131,6 +131,17 @@ services:
         condition: service_healthy
     ports:
       - "9004:9004"
+  
+  app-tweeter-ng:
+    build: ./app-tweeter-ng
+    container_name: ng-tweeter
+    ports:
+      - "4200:80"
+    depends_on:
+      api-gateway:
+        condition: service_healthy
+    volumes:
+      - /app/node_modules
 
 volumes:
   mysql-user-data:
