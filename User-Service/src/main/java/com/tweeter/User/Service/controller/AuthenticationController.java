@@ -1,24 +1,19 @@
 package com.tweeter.User.Service.controller;
 
-import com.tweeter.User.Service.payload.RegisterDTO;
 import com.tweeter.User.Service.payload.LoginDTO;
-import com.tweeter.User.Service.payload.RegisterResponse;
 import com.tweeter.User.Service.payload.LoginResponse;
+import com.tweeter.User.Service.payload.RegisterDTO;
+import com.tweeter.User.Service.payload.RegisterResponse;
 import com.tweeter.User.Service.service.AuthenticationService;
 import com.tweeter.User.Service.service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.stream.Collectors;
 
 
 @Log4j2
