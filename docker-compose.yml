@@ -5,12 +5,23 @@ services:
     image: mysql:8.0
     container_name: mysql-user-service
     volumes:
-      - mysql-data:/var/lib/mysql
+      - mysql-user-data:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=userdb
     ports:
       - "3306:3306"
+  
+  mysqltweetdb:
+    image: mysql:8.0
+    container_name: mysql-tweet-service
+    volumes:
+      - mysql-tweet-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=tweetdb
+    ports:
+      - "3307:3306"
 
   server-registry:
     image: ttran8800/server-registry:latest
@@ -54,5 +65,21 @@ services:
     ports:
       - "9001:9001"
 
+  tweet-service:
+    image: ttran8800/tweet-service:latest
+    build: ./tweet-service
+    container_name: tweet-service
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9002/actuator/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    depends_on:
+      api-gateway:
+        condition: service_healthy
+    ports:
+      - "9002:9002"
+
 volumes:
-  mysql-data:
+  mysql-user-data:
+  mysql-tweet-data:
