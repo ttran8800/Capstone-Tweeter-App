@@ -16,4 +16,9 @@ public class FallBackController {
         return "Tweet Service is down";
     }
 
+    @PostMapping("/tagServiceFallBack")
+    public String tagServiceFallBack() {
+        return "Tag Service is down";
+    }
+
 }

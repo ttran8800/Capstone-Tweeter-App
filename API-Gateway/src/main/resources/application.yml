@@ -37,12 +37,21 @@ spring:
         - id: TWEET-SERVICE
           uri: lb://TWEET-SERVICE
           predicates:
-            - Path=/api/v1.0/tweets/**
+            - Path=/api/v1.0/tweets/{username}/addTweet
           filters:
             - name: CircuitBreaker
               args:
                 name: TWEET-SERVICE
                 fallbackUri: forward/tweetServiceFallBack
+        - id: TAG-SERVICE
+          uri: lb://TAG-SERVICE
+          predicates:
+            - Path=/api/v1.0/tweets/{tweetId}/addTag
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: TAG-SERVICE
+                fallbackUri: forward/tagServiceFallBack
 
 
 eureka:

@@ -3,7 +3,7 @@ version: '3.8'
 services:
   mysqluserdb:
     image: mysql:8.0
-    container_name: mysql-user-service
+    container_name: mysql-user-db
     volumes:
       - mysql-user-data:/var/lib/mysql
     environment:
@@ -14,7 +14,7 @@ services:
   
   mysqltweetdb:
     image: mysql:8.0
-    container_name: mysql-tweet-service
+    container_name: mysql-tweet-db
     volumes:
       - mysql-tweet-data:/var/lib/mysql
     environment:
@@ -22,6 +22,28 @@ services:
       - MYSQL_DATABASE=tweetdb
     ports:
       - "3307:3306"
+  
+  mysqltagdb:
+    image: mysql:8.0
+    container_name: mysql-tag-db
+    volumes:
+      - mysql-tag-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=tagdb
+    ports:
+      - "3308:3306"
+
+  mysqltweettagdb:
+    image: mysql:8.0
+    container_name: mysql-tweettag-db
+    volumes:
+      - mysql-tweettag-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=tweettagdb
+    ports:
+      - "3309:3306"
 
   server-registry:
     image: ttran8800/server-registry:latest
@@ -79,7 +101,39 @@ services:
         condition: service_healthy
     ports:
       - "9002:9002"
+  
+  tag-service:
+    image: ttran8800/tag-service:latest
+    build: ./tag-service
+    container_name: tag-service
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9003/actuator/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    depends_on:
+      api-gateway:
+        condition: service_healthy
+    ports:
+      - "9003:9003"
+
+  tweet-tag-service:
+    image: ttran8800/tweet-tag-service:latest
+    build: ./tweet-tag-service
+    container_name: tweet-tag-service
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9004/actuator/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    depends_on:
+      api-gateway:
+        condition: service_healthy
+    ports:
+      - "9004:9004"
 
 volumes:
   mysql-user-data:
   mysql-tweet-data:
+  mysql-tag-data:
+  mysql-tweettag-data:
