@@ -59,10 +59,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         try {
             if (userService.isUserExistByLoginId(registerDTO.getLoginId())) {
-                return new RegisterResponse(true, "LoginId", "Login ID already in use!", null);
+                return new RegisterResponse(true, "LoginId", "Login ID already in use!");
             }
             if (userService.isUserExistByEmail(registerDTO.getEmail())) {
-                return new RegisterResponse(true, "Email", "Email already in use", null);
+                return new RegisterResponse(true, "Email", "Email already in use");
             }
             User user = new User();
             user.setFirstName(registerDTO.getFirstName());
@@ -76,9 +76,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
             User savedUser = userService.saveUser(user);
 
-            return new RegisterResponse(false, "none", "Registered Successfully", savedUser);
+            return new RegisterResponse(false, "none", "Registered Successfully");
         } catch (Exception e) {
-            return new RegisterResponse(true, "Exception", "Registration failed due to an internal error" + e.getMessage(), null);
+            return new RegisterResponse(true, "Exception", "Registration failed due to an internal error" + e.getMessage());
         }
 
     }

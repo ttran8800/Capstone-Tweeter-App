@@ -6,4 +6,3 @@ COPY ${JAR_FILE} user.jar
 ENTRYPOINT ["java", "-jar", "/user.jar"]
 
 EXPOSE 9001
-

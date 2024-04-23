@@ -1,0 +1,92 @@
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+        <div class="wrapper">
+            <div class="{{alertClass}}" role="alert"> {{message}}
+                <p *ngIf="isRegister">{{redirectMessage}} {{countdown}} seconds...</p>
+            </div>
+            <h2>Registration</h2>
+            <hr>
+            <form [formGroup]="registerForm" (submit)="onSubmit()">
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" class="form-control" formControlName="firstName"
+                        [class.is-invalid]="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
+                    <div *ngIf="firstName?.errors && firstName?.touched">
+                        <small class="text-danger" *ngIf="firstName?.errors?.['required']">First name is
+                            required</small>
+                        <small class="text-danger" *ngIf="firstName?.errors?.['minlength']">First name must be 2
+                            characters minimum</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" class="form-control" formControlName="lastName"
+                        [class.is-invalid]="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
+                    <div *ngIf="lastName?.errors && lastName?.touched">
+                        <small class="text-danger" *ngIf="lastName?.errors?.['required']">Last name is required</small>
+                        <small class="text-danger" *ngIf="lastName?.errors?.['minlength']">Last name must be 2
+                            characters minimum</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Login ID</label>
+                    <input type="text" class="form-control" formControlName="loginId"
+                        [class.is-invalid]="registerForm.get('loginId')?.invalid && registerForm.get('loginId')?.touched">
+                    <div *ngIf="loginId?.errors && loginId?.touched">
+                        <small class="text-danger" *ngIf="loginId?.errors?.['required']">LoginId is required</small>
+                        <small class="text-danger" *ngIf="loginId?.errors?.['minlength']">LoginId must be 2 characters
+                            minimum</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" class="form-control" formControlName="email"
+                        [class.is-invalid]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+                    <div *ngIf="email?.errors && email?.touched">
+                        <small class="text-danger" *ngIf="email?.errors?.['required']">Email is required</small>
+                        <small class="text-danger" *ngIf="email?.errors?.['email']">Email is not valid</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Contact Number</label>
+                    <input type="text" class="form-control" formControlName="contactNumber"
+                        [class.is-invalid]="registerForm.get('contactNumber')?.invalid && registerForm.get('contactNumber')?.touched">
+                    <div *ngIf="contactNumber?.errors && contactNumber?.touched">
+                        <small class="text-danger" *ngIf="contactNumber?.errors?.['required']">Contact number is
+                            required</small>
+                        <small class="text-danger" *ngIf="contactNumber?.errors?.['minlength']">Contact number must be 9
+                            characters minimum</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" formControlName="password"
+                        [class.is-invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+                    <div *ngIf="password?.errors && password?.touched">
+                        <small class="text-danger" *ngIf="password?.errors?.['required']">Password is required</small>
+                        <small class="text-danger" *ngIf="password?.errors?.['minlength']">Password must be 6 characters
+                            minimum</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" class="form-control" formControlName="confirmPassword"
+                        [class.is-invalid]="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched">
+                    <div *ngIf="confirmPassword?.errors && confirmPassword?.touched">
+                        <small class="text-danger" *ngIf="confirmPassword?.errors?.['required']">Password is
+                            required</small>
+                        <small class="text-danger" *ngIf="confirmPassword?.errors?.['minlength']">Password must be 6
+                            characters minimum</small>
+                    </div>
+                    <div *ngIf="confirmPassword?.errors?.['passwordMismatch'] && confirmPassword?.touched">
+                        <small class="text-danger">Passwords do not match</small>
+                    </div>
+                </div>
+                <button type="submit" [disabled]="registerForm.invalid"
+                    class="btn btn-primary btn-block">Register</button>
+
+            </form>
+        </div>
+    </div>
+</div>
