@@ -12,5 +12,4 @@ public class RegisterResponse {
     private boolean error;
     private String errorType;
     private String message;
-    private User user;
 }

@@ -17,9 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Log4j2
-@CrossOrigin
 @RestController
-@RequestMapping("/api/v1.0/tweets")
+@RequestMapping("/api/v1.0/tweets/user-service")
 public class AuthenticationController {
     @Autowired
     private AuthenticationService authenticationService;
@@ -49,7 +48,7 @@ public class AuthenticationController {
             return new ResponseEntity<>(response, status);
         } catch (RuntimeException ex) {
             log.info("Registration error: {}", ex.getMessage());
-            return ResponseEntity.badRequest().body(new RegisterResponse(true, "Exception", "Error during registration: " + ex.getMessage(), null));
+            return ResponseEntity.badRequest().body(new RegisterResponse(true, "Exception", "Error during registration: " + ex.getMessage()));
         }
     }
 

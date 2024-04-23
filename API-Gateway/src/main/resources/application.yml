@@ -6,29 +6,17 @@ spring:
     name: API-GATEWAY
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
       routes:
         - id: USER-SERVICE-REGISTER
           uri: lb://USER-SERVICE
           predicates:
-            - Path=/api/v1.0/tweets/register
-          filters:
-            - name: CircuitBreaker
-              args:
-                name: USER-SERVICE
-                fallbackUri: forward:/userServiceFallBack
-        - id: USER-SERVICE-LOGIN
-          uri: lb://USER-SERVICE
-          predicates:
-            - Path=/api/v1.0/tweets/login
-          filters:
-            - name: CircuitBreaker
-              args:
-                name: USER-SERVICE
-                fallbackUri: forward:/userServiceFallBack
-        - id: USER-SERVICE-VALIDATE-TOKEN
-          uri: lb://USER-SERVICE
-          predicates:
-            - Path=/api/v1.0/tweets/validateToken
+            - Path=/api/v1.0/tweets/user-service/**
           filters:
             - name: CircuitBreaker
               args:
@@ -37,7 +25,7 @@ spring:
         - id: TWEET-SERVICE
           uri: lb://TWEET-SERVICE
           predicates:
-            - Path=/api/v1.0/tweets/{username}/addTweet
+            - Path=/api/v1.0/tweets/tweet-service/**
           filters:
             - name: CircuitBreaker
               args:
@@ -46,7 +34,7 @@ spring:
         - id: TAG-SERVICE
           uri: lb://TAG-SERVICE
           predicates:
-            - Path=/api/v1.0/tweets/{tweetId}/addTag
+            - Path=/api/v1.0/tweets/tag-service/**
           filters:
             - name: CircuitBreaker
               args:
@@ -60,3 +48,7 @@ eureka:
   client:
     service-url:
       defaultZone: http://server-registry:8761/eureka
+
+logging:
+  level:
+    org.springframework.web.cors: DEBUG
