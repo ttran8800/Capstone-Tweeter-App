@@ -7,15 +7,43 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: USER-SERVICE
+        - id: USER-SERVICE-REGISTER
           uri: lb://USER-SERVICE
           predicates:
-            - Path=/api/v1.0/tweets/**
+            - Path=/api/v1.0/tweets/register
           filters:
             - name: CircuitBreaker
               args:
                 name: USER-SERVICE
                 fallbackUri: forward:/userServiceFallBack
+        - id: USER-SERVICE-LOGIN
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/api/v1.0/tweets/login
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: USER-SERVICE
+                fallbackUri: forward:/userServiceFallBack
+        - id: USER-SERVICE-VALIDATE-TOKEN
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/api/v1.0/tweets/validateToken
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: USER-SERVICE
+                fallbackUri: forward:/userServiceFallBack
+        - id: TWEET-SERVICE
+          uri: lb://TWEET-SERVICE
+          predicates:
+            - Path=/api/v1.0/tweets/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: TWEET-SERVICE
+                fallbackUri: forward/tweetServiceFallBack
+
 
 eureka:
   instance:

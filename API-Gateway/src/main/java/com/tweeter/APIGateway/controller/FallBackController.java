@@ -10,4 +10,10 @@ public class FallBackController {
     public String userServiceFallBack() {
         return "User Service is down";
     }
+
+    @PostMapping("/tweetServiceFallBack")
+    public String tweetServiceFallBack() {
+        return "Tweet Service is down";
+    }
+
 }
