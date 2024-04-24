@@ -1,13 +1,13 @@
 <div class="row">
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
-        <h1 class="title">YOUR RECENT TWEETS</h1>
+        <h1 class="title">ALL USER TWEETS</h1>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
-        <div class="card" *ngFor="let tweets of currentUserAllTweets">
+        <div class="card" *ngFor="let tweets of allTweetPayload">
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-4">
@@ -18,10 +18,10 @@
                     <div class="col-sm-8">
                         <div class="row justify-content-between">
                             <div class="col-auto">
-                                <label for="" class="tweet-handle">@{{user?.loginId}}</label>
+                                <label for="" class="tweet-handle">@{{tweets?.loginId}}</label>
                             </div>
                             <div class="col-auto">
-                                <label for="">{{tweets.date | timeAgo }}</label>
+                                <label for="">{{tweets.tweet.date| timeAgo }}</label>
                             </div>
                         </div>
                         <div class="row">
@@ -31,7 +31,7 @@
                         </div>
                         <div class="row tweet-messages">
                             <div class="col-sm-12">
-                                <p>{{tweets.message}}</p>
+                                <p>{{tweets.tweet.message}}</p>
                             </div>
                         </div>
                     </div>

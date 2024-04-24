@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Log4j2
 @RestController
-@RequestMapping("/api/v1.0/tweets/user-service")
+@RequestMapping("/api/v1.0/tweets/auth-service")
 public class AuthenticationController {
     @Autowired
     private AuthenticationService authenticationService;
@@ -75,9 +75,9 @@ public class AuthenticationController {
                 Jwt jwt = jwtDecoder.decode(token); // Validate the token
 
                 String loginId = jwt.getSubject();
-                log.info("in authentication controller, validatetoken. Token decoded and loginId: " + loginId);
+                log.info("in authentication controller, validate token. Token decoded and loginId: " + loginId);
                 if (userService.isUserExistByLoginId(loginId)) {
-                    log.info("user exist: should reuturn responseentity OK");
+                    log.info("user exist: should return response entity OK");
                     return ResponseEntity.ok("Token is valid");
                 } else {
                     return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User is not authorized to create tweet");

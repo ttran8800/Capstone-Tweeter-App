@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IUser } from 'src/app/models/user.model';
-import { DataService } from 'src/app/services/data.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +14,7 @@ export class NavbarComponent {
   user: IUser | null = null;
   private subscription: Subscription = new Subscription();
 
-  constructor(private router: Router, private dataService: DataService) {}
+  constructor(private router: Router, private userService: UserService) {}
 
     checkToken() {
       return localStorage.getItem('token') ? true: false;
@@ -28,7 +28,7 @@ export class NavbarComponent {
 
     ngOnInit(): void {
         this.subscription.add(
-          this.dataService.user$.subscribe(user => {
+          this.userService.user$.subscribe(user => {
             this.user = user;
           })
         );

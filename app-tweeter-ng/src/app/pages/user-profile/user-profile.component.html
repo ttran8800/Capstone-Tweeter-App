@@ -29,11 +29,11 @@
                 </div>
                 <div class="form-group">
                     <label>Email</label>
-                    <input class="form-control" [disabled]="true" type="text" value="{{user?.email}}">
+                    <input class="form-control" formControlName="email" type="text" value="{{user?.email}}">
                 </div>
                 <div class="form-group">
                     <label>LoginId</label>
-                    <input class="form-control" [disabled]="true" type="text" value="{{user?.loginId}}">
+                    <input class="form-control" formControlName="loginId" type="text" value="{{user?.loginId}}">
                 </div>
                 <div class="form-group">
                     <label for="">Contact Number</label>
