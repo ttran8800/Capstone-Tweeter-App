@@ -1,29 +1,23 @@
-# use the offcial nodejs image as base image
 FROM node:18 as build
 
-# set the working directory in the container
 WORKDIR /app
 
-# copy package.json and package-lock.json to the container
 COPY package*.json ./
 
 RUN npm install
-# install project dependencies
 COPY . .
 
 RUN npm install -g @angular/cli
 
-# build the angular app for production
 RUN ng build --configuration production
 
-# use a smaller, production ready image as the final image
-FROM nginx:alpine
+FROM caddy:2-alpine
 
-# copy the production ready angular app to the nginx web server root directory
-COPY --from=build /app/dist/app-tweeter-ng /usr/share/nginx/html
+COPY --from=build /app/dist/app-tweeter-ng /usr/share/caddy
 
-# EXPOSE port 80
-EXPOSE 80
+COPY Caddyfile /etc/caddy/Caddyfile
+
+EXPOSE 80 443
 
 # start the nginx web server
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
