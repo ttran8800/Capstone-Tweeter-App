@@ -26,6 +26,7 @@ public class RoleLoader implements CommandLineRunner {
             roleRepository.save(role);
 
         } catch (Exception e) {
+            System.out.println("");
             System.out.println(e.getMessage());
         }
 
