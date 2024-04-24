@@ -1,0 +1,57 @@
+<form [formGroup]="tweetForm" (submit)="onSubmitHandler()">
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            <h1 class="title">POST A TWEET</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="avator-container">
+                                <img class="avator" src="assets/img/player.png" alt="">
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="row justify-content-between">
+                                <div class="col-auto">
+                                    <label class="tweet-handle">@{{user?.loginId}}</label>
+                                </div>
+                                <div class="col-auto">
+                                    <label>{{currentTime | date: 'mediumTime'}}</label>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-sm-12">
+                                    <label>Message</label>
+                                
+                                <textarea rows="2" cols="55" class="form-control tweet-message-box" formControlName="tweetMessage"
+                                    [class.is-invalid]="tweetForm.get('tweetMessage')?.invalid && tweetForm.get('tweetMessage')?.touched" maxlength="50" (input)="checkLength()" ></textarea>
+                                    
+                                <div *ngIf="tweetMessage?.errors && tweetMessage?.touched">
+                                    <small class="text-danger" *ngIf="tweetMessage?.errors?.['required']">Tweet must contain message</small>
+                                </div>
+                                <div *ngIf="tweetMessage?.value?.length === 50">
+                                    <small class="text-danger" >Maximum character length reached</small>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div>
+                                        <button type="submit" class="btn btn-primary btn-block" [disabled]="tweetForm.invalid">Post</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

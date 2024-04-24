@@ -1,0 +1,15 @@
+.avator-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.tweet-handle {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.title {
+    text-align: center;
+}

@@ -51,6 +51,7 @@ export class LoginComponent {
             localStorage.setItem('token', response.token);
             this.loginForm.reset();
             this.isLogin = true;
+            this.dataService.getUser();
             const interval = setInterval(() => {
               this.countdown--;
               if (this.countdown === 0) {

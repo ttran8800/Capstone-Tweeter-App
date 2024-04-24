@@ -13,6 +13,9 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 import { HttpTokenLoader } from './utils/HttpTokenLoader.util';
+import { TweetPostComponent } from './components/tweet-post/tweet-post.component';
+import { CurrentUserAllTweetsComponent } from './components/current-user-all-tweets/current-user-all-tweets.component';
+import { TimeAgoPipe } from './pipes/timeAgo.pipe';
 
 
 @NgModule({
@@ -25,6 +28,9 @@ import { HttpTokenLoader } from './utils/HttpTokenLoader.util';
     LoginComponent,
     RegisterComponent,
     UserProfileComponent,
+    TweetPostComponent,
+    TimeAgoPipe,
+    CurrentUserAllTweetsComponent
   ],
   imports: [
     BrowserModule,

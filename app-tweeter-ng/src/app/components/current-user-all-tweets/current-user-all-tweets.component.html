@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+        <h1 class="title">YOUR RECENT TWEETS</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+        <div class="card" *ngFor="let tweets of allUserTweets">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="avator-container">
+                            <img src="assets/img/player.png" alt="" class="avator">
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="row justify-content-between">
+                            <div class="col-auto">
+                                <label for="" class="tweet-handle">@{{user?.loginId}}</label>
+                            </div>
+                            <div class="col-auto">
+                                <label for="">{{tweets.date | timeAgo }}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label for="">Tweet Message:</label>
+                            </div>
+                        </div>
+                        <div class="row tweet-messages">
+                            <div class="col-sm-12">
+                                <p>{{tweets.message}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

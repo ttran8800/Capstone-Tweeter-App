@@ -39,7 +39,6 @@ public class UserController {
         if (authentication == null || authHeader == null || !authHeader.startsWith("Bearer ")) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-
         try {
             String token = authHeader.substring(7); // Ensure this substring is safe to perform with proper checks
             Jwt jwt = jwtDecoder.decode(token);
