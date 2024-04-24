@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IUser } from '../models/user.model';
+import { TweetService } from './tweet.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,22 +12,30 @@ export class DataService {
   private userSubject = new BehaviorSubject<IUser | null>(null);
   public user$: Observable<IUser | null> = this.userSubject.asObservable();
 
-  constructor(private http: HttpClient) { 
-    if(localStorage.getItem('token')) {
-      this.getUser();
-      console.log(this.userSubject)
-      console.log(this.user$)
-    }
+  constructor(private http: HttpClient,
+              private tweetService: TweetService) {
+    this.initializeUser();
   }
 
   private BASE_URL = 'http://localhost:9000/api/v1.0/tweets/user-service';
+
+  private initializeUser(): void {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.getUser();
+    }
+  }
 
   getUser(): void {
     this.http.get<IUser>(`${this.BASE_URL}/users/loggedInUser`).subscribe({
       next: (user) => {
         this.userSubject.next(user);
+        this.tweetService.getAllUserTweet(user.id!)
       },
-      error: (error) => console.log('Error fetching user:', error)
+      error: (error) => {
+        console.log('Error fetching user:', error);
+        this.userSubject.next(null);
+      }
     });
   }
 

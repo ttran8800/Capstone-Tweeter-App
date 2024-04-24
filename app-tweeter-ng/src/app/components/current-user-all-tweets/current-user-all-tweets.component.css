@@ -1,0 +1,28 @@
+.card {
+    margin-bottom: 20px;
+}
+
+.avator {
+    height: 125px;
+}
+
+.title {
+    text-align: center;
+}
+
+.avator-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.tweet-messages {
+    border: 1px solid lightblue;
+    border-radius: 10px;
+}
+
+.tweet-handle {
+    font-size: 20px;
+    font-weight: bold;
+}

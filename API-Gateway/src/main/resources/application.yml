@@ -41,7 +41,6 @@ spring:
                 name: TAG-SERVICE
                 fallbackUri: forward/tagServiceFallBack
 
-
 eureka:
   instance:
     prefer-ip-address: true
