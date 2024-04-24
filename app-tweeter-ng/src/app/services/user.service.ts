@@ -7,7 +7,8 @@ import { TweetService } from './tweet.service';
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
+
+export class UserService {
 
   private userSubject = new BehaviorSubject<IUser | null>(null);
   public user$: Observable<IUser | null> = this.userSubject.asObservable();
@@ -17,7 +18,7 @@ export class DataService {
     this.initializeUser();
   }
 
-  private BASE_URL = 'http://localhost:9000/api/v1.0/tweets/user-service';
+  private BASE_URL = 'http://user-service:9000/api/v1.0/tweets/user-service';
 
   private initializeUser(): void {
     const token = localStorage.getItem('token');

@@ -2,6 +2,7 @@ package com.tweeter.Tweet.Service.controller;
 
 import com.tweeter.Tweet.Service.entity.Tweet;
 import com.tweeter.Tweet.Service.external.client.AuthenticationService;
+import com.tweeter.Tweet.Service.payload.TweetWithUserHandlePayload;
 import com.tweeter.Tweet.Service.service.TweetService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,21 @@ public class TweetController {
             if (response.getStatusCode() == HttpStatus.OK) {
                 List<Tweet> tweetList = tweetService.getAllTweetByUserId(userId);
                 return new ResponseEntity<>(tweetList, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<TweetWithUserHandlePayload>> getAllTweets(@RequestHeader("Authorization") String authHeader) {
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            ResponseEntity<String> response = authenticationService.validateToken(authHeader);
+            if (response.getStatusCode() == HttpStatus.OK) {
+                log.info("right before call tweet service");
+                List<TweetWithUserHandlePayload> payloadList = tweetService.getAllTweetsWithUserHandle();
+                log.info("right after getting payloadList, in tweet controller");
+                return new ResponseEntity<>(payloadList, HttpStatus.OK);
             }
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }

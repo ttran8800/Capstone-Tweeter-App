@@ -49,7 +49,7 @@ public class SecurityConfig {
         return http
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1.0/tweets/user-service/register", "/api/v1.0/tweets/user-service/login").permitAll()
+                        .requestMatchers("/api/v1.0/tweets/auth-service/register", "/api/v1.0/tweets/auth-service/login", "/api/v1.0/tweets/user-service/users/getUserById").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)

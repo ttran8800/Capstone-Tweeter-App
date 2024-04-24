@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { RegisterRequestPayload } from 'src/app/payloads/register-request-payload.payload';
-import { RegisterResponsePayload } from 'src/app/payloads/register-response-payload.payload';
 import { FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 

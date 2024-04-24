@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1.0/tweets/user-service")
 @RestController
 public class UserController {
+
     @Autowired
     private UserService userService;
 
@@ -55,5 +56,10 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build(); // Catch all for other exceptions
         }
+    }
+
+    @PostMapping("/users/getUserById")
+    public String getUserLoginId(@RequestBody Long userId) {
+        return userService.getUserLoginId(userId);
     }
 }

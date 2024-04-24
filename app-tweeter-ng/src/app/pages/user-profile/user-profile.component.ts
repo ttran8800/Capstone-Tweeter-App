@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, AbstractControl, FormGroup } from '@angular/forms';
-import { DataService } from 'src/app/services/data.service';
+import { FormBuilder, Validators, AbstractControl, FormGroup, FormControl } from '@angular/forms';
+import { UserService } from 'src/app/services/user.service';
 import { IUser } from 'src/app/models/user.model';
 import { Subscription } from 'rxjs';
 
@@ -22,11 +22,11 @@ export class UserProfileComponent implements OnInit{
 
   isDisabled = true;
 
-  constructor(private fb: FormBuilder, private dataService: DataService) { }
+  constructor(private fb: FormBuilder, private userService: UserService) { }
 
   ngOnInit(): void {
     this.subscription.add(
-      this.dataService.user$.subscribe(user => {
+      this.userService.user$.subscribe(user => {
         this.user = user;
         this.initializeForm(user);
       })
@@ -43,6 +43,14 @@ export class UserProfileComponent implements OnInit{
 
   get lastName(): AbstractControl {
     return this.profileForm.get('lastName')!;
+  }
+
+  get email(): AbstractControl {
+    return this.profileForm.value('email');
+  }
+
+  get loginId(): AbstractControl {
+    return this.profileForm.value('loginId');
   }
 
   get contactNumber(): AbstractControl {
@@ -73,6 +81,8 @@ export class UserProfileComponent implements OnInit{
     this.profileForm = this.fb.group({
       firstName: [user?.firstName, [Validators.required, Validators.minLength(2)]],
       lastName: [user?.lastName, [Validators.required, Validators.minLength(2)]],
+      email: new FormControl({value: user?.email, disabled: true}),
+      loginId: new FormControl({value: user?.loginId, disabled: true}),
       contactNumber: [user?.contactNumber, [Validators.required, Validators.minLength(9)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
@@ -81,13 +91,16 @@ export class UserProfileComponent implements OnInit{
 
   onSubmitHandler() {
     if (this.profileForm.valid && this.user) {
+      console.log(this.profileForm.get('email'))
       const updateUser: IUser = {
         firstName: this.profileForm.value.firstName,
         lastName: this.profileForm.value.lastName,
+        email: this.profileForm.get('email')?.value,
+        loginId: this.profileForm.get('loginId')?.value,
         contactNumber: this.profileForm.value.contactNumber!,
         password: this.profileForm.value.password!
       }
-      this.dataService.updateUser(updateUser);
+      this.userService.updateUser(updateUser);
       this.message = "User profile updated";
       this.alertClass = 'alert alert-success';
       const interval = setInterval(() => {

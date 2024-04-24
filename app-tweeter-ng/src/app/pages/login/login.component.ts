@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service'; 
-import { DataService } from 'src/app/services/data.service';
+import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LoginRequestPayload } from 'src/app/payloads/login-request-payload.payload';
@@ -21,7 +21,7 @@ export class LoginComponent {
   constructor(private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private dataService: DataService) {
+    private userService: UserService) {
 
   }
   loginForm = this.fb.group({
@@ -51,7 +51,7 @@ export class LoginComponent {
             localStorage.setItem('token', response.token);
             this.loginForm.reset();
             this.isLogin = true;
-            this.dataService.getUser();
+            this.userService.getUser();
             const interval = setInterval(() => {
               this.countdown--;
               if (this.countdown === 0) {

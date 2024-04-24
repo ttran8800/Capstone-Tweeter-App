@@ -10,4 +10,5 @@ public interface UserService {
 
     User getUser(String usernameOrEmail);
 
+    String getUserLoginId (Long userId);
 }

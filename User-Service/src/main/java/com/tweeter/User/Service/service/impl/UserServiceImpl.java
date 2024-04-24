@@ -54,4 +54,10 @@ public class UserServiceImpl implements UserService {
     public User getUser(String usernameOrEmail) {
         return userRepository.findByLoginIdOrEmail(usernameOrEmail, usernameOrEmail).orElseThrow(() -> new RuntimeException("User not found"));
     }
+
+    @Override
+    public String getUserLoginId(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        return user.getLoginId();
+    }
 }

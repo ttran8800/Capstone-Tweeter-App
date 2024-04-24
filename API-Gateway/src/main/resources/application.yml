@@ -13,7 +13,16 @@ spring:
             allowedMethods: "*"
             allowedHeaders: "*"
       routes:
-        - id: USER-SERVICE-REGISTER
+        - id: USER-SERVICE-AUTH
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/api/v1.0/tweets/auth-service/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: USER-SERVICE
+                fallbackUri: forward:/userServiceFallBack
+        - id: USER-SERVICE
           uri: lb://USER-SERVICE
           predicates:
             - Path=/api/v1.0/tweets/user-service/**

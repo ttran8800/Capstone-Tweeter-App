@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IUser } from 'src/app/models/user.model';
-import { DataService } from 'src/app/services/data.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -14,11 +14,11 @@ export class HomeComponent implements OnInit {
   private subscription: Subscription = new Subscription;
 
 
-  constructor(private dataService: DataService) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.subscription.add(
-      this.dataService.user$.subscribe(user => { this.user = user; })
+      this.userService.user$.subscribe(user => { this.user = user; })
     );
   }
 
