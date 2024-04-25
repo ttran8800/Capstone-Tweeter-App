@@ -14,8 +14,6 @@ So far, docker compose will pull from my docker hub ttran8800:
 things to do:
 
 angular front end (currently working on it)
-- tweet reply
-- tweet reply list
 - hash tag
 - 
 - likes (optional)
