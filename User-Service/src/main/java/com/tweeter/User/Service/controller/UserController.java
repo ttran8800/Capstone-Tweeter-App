@@ -2,6 +2,7 @@ package com.tweeter.User.Service.controller;
 
 import com.tweeter.User.Service.entity.User;
 import com.tweeter.User.Service.service.UserService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.web.bind.annotation.*;
 
+@Log4j2
 @RequestMapping("/api/v1.0/tweets/user-service")
 @RestController
 public class UserController {
@@ -43,7 +45,6 @@ public class UserController {
         try {
             String token = authHeader.substring(7); // Ensure this substring is safe to perform with proper checks
             Jwt jwt = jwtDecoder.decode(token);
-
             String loginId = jwt.getSubject();
             User user = userService.getUser(loginId);
             if (user != null) {

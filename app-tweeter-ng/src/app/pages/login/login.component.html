@@ -1,41 +1,47 @@
 <div class="container">
-    <div class="row">
-      <div class="col-md-3"></div>
-      <div class="col-md-6">
-        <div class="wrapper">
-          <div class="{{alertClass}}" role="alert"> {{message}}
-            <p *ngIf="isLogin">{{redirectMessage}} {{countdown}} seconds...</p>
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <div class="wrapper">
+        <div class="{{alertClass}}" role="alert"> {{message}}
+          <p *ngIf="isLogin">{{redirectMessage}} {{countdown}} seconds...</p>
         </div>
-          <h2>Login</h2>
-          <hr />
-          <form [formGroup]="loginForm" (submit)="onLoginHandler()">
-            <div class="form-group">
-              <label for="">Username or Email</label>
-              <input type="text" class="form-control" formControlName="usernameOrEmail"
+        <h2>Login</h2>
+        <hr />
+        <form [formGroup]="loginForm" (submit)="onLoginHandler()">
+          <div class="form-group">
+            <label>
+              Username or Email
+              <input type="text" id="input-login-usernameOrEmail" class="form-control" formControlName="usernameOrEmail"
                 [class.is-invalid]="usernameOrEmail?.invalid && usernameOrEmail?.touched" />
-              <div *ngIf="usernameOrEmail?.errors && usernameOrEmail?.touched">
-                <small class="text-danger" *ngIf="usernameOrEmail?.errors?.['required']">Username or Email is
-                  required</small>
-              </div>
+            </label>
+            <div *ngIf="usernameOrEmail?.errors && usernameOrEmail?.touched">
+              <small class="text-danger" *ngIf="usernameOrEmail?.errors?.['required']">Username or Email is
+                required</small>
             </div>
-  
-            <div class="form-group">
-              <label for="">Password</label>
-              <input type="password" class="form-control" formControlName="password"
+          </div>
+
+          <div class="form-group">
+            <label>
+              Password
+              <input type="password" id="input-login-password" class="form-control" formControlName="password"
                 [class.is-invalid]="password?.invalid && password?.touched" />
-              <div *ngIf="password?.errors && password?.touched">
-                <small class="text-danger" *ngIf="password?.errors?.['required']">Password is required</small>
-                <small class="text-danger" *ngIf="password?.errors?.['minlength']">Password must be 6 characters
-                  long</small>
-              </div>
+            </label>
+
+            <div *ngIf="password?.errors && password?.touched">
+              <small class="text-danger" *ngIf="password?.errors?.['required']">Password is required</small>
+              <small class="text-danger" *ngIf="password?.errors?.['minlength']">Password must be 6 characters
+                long</small>
             </div>
-  
-            <button type="submit" class="btn btn-primary btn-block" [disabled]="loginForm.invalid">Login</button>
-          </form>
-          <br />
-          <p *ngIf="message !== 'Login Success'" class="text-center">New User? <a [routerLink]="['/register']">Click Here</a></p>
-        </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block" [disabled]="loginForm.invalid">Login</button>
+        </form>
+        <br />
+        <p *ngIf="message !== 'Login Success'" class="text-center">New User? <a [routerLink]="['/register']">Click
+            Here</a></p>
       </div>
-      <div class="col-md-3"></div>
     </div>
+    <div class="col-md-3"></div>
   </div>
+</div>

@@ -24,11 +24,13 @@ export class TweetService implements OnInit, OnDestroy {
 
   private _dataService: UserService | null = null;
 
-  private BASE_URL = 'http://tweet-service:9000/api/v1.0/tweets/tweet-service'
+  private BASE_URL = 'http://localhost:9000/api/v1.0/tweets/tweet-service'
 
   constructor(private http: HttpClient,
               private injector: Injector) {
-                this.getAllTweetWithHandle();
+                if (localStorage.getItem('token')) {
+                  this.getAllTweetWithHandle();
+                }
                }
 
 

@@ -28,23 +28,28 @@
                             </div>
                             <div class="row form-group">
                                 <div class="col-sm-12">
-                                    <label>Message</label>
-                                
-                                <textarea rows="2" cols="55" class="form-control tweet-message-box" formControlName="tweetMessage"
-                                    [class.is-invalid]="tweetForm.get('tweetMessage')?.invalid && tweetForm.get('tweetMessage')?.touched" maxlength="50" (input)="checkLength()" ></textarea>
-                                    
-                                <div *ngIf="tweetMessage?.errors && tweetMessage?.touched">
-                                    <small class="text-danger" *ngIf="tweetMessage?.errors?.['required']">Tweet must contain message</small>
-                                </div>
-                                <div *ngIf="tweetMessage?.value?.length === 50">
-                                    <small class="text-danger" >Maximum character length reached</small>
-                                </div>
+                                    <label>
+                                        Message
+                                        <textarea rows="2" cols="55" id="textarea-tweetmessage"
+                                            class="form-control tweet-message-box" formControlName="tweetMessage"
+                                            [class.is-invalid]="tweetForm.get('tweetMessage')?.invalid && tweetForm.get('tweetMessage')?.touched"
+                                            maxlength="50" (input)="checkLength()">
+                                        </textarea>
+                                    </label>
+                                    <div *ngIf="tweetMessage?.errors && tweetMessage?.touched">
+                                        <small class="text-danger" *ngIf="tweetMessage?.errors?.['required']">Tweet must
+                                            contain message</small>
+                                    </div>
+                                    <div *ngIf="tweetMessage?.value?.length === 50">
+                                        <small class="text-danger">Maximum character length reached</small>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div>
-                                        <button type="submit" class="btn btn-primary btn-block" [disabled]="tweetForm.invalid">Post</button>
+                                        <button type="submit" class="btn btn-primary btn-block"
+                                            [disabled]="tweetForm.invalid">Post</button>
                                     </div>
                                 </div>
                             </div>

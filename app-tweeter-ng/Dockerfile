@@ -1,23 +1,17 @@
 FROM node:18 as build
-
 WORKDIR /app
-
 COPY package*.json ./
-
 RUN npm install
 COPY . .
-
 RUN npm install -g @angular/cli
-
 RUN ng build --configuration production
 
-FROM caddy:2-alpine
+FROM nginx:alpine
+COPY --from=build /app/dist/app-tweeter-ng /usr/share/nginx/html
+COPY nginx-custom.conf /etc/nginx/conf.d/nginx-custom.conf
 
-COPY --from=build /app/dist/app-tweeter-ng /usr/share/caddy
+RUN rm /etc/nginx/conf.d/default.conf
 
-COPY Caddyfile /etc/caddy/Caddyfile
+EXPOSE 80
 
-EXPOSE 80 443
-
-# start the nginx web server
-CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
+CMD ["nginx", "-g", "daemon off;"]
