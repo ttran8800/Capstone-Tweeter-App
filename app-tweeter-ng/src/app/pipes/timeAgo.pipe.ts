@@ -1,5 +1,5 @@
-import { Pipe, PipeTransform, NgZone, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { interval, Subscription } from 'rxjs';
+import { Pipe, PipeTransform, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 @Pipe({
   name: 'timeAgo',
@@ -7,19 +7,11 @@ import { interval, Subscription } from 'rxjs';
 })
 export class TimeAgoPipe implements PipeTransform, OnDestroy {
   
-  private timer!: Subscription;
+  private timer: Subscription | undefined;
 
-  constructor(private ngZone: NgZone, private changeDetRef: ChangeDetectorRef) {}
+  constructor() {}
 
   transform(value: Date): string {
-    this.ngZone.runOutsideAngular(() => {
-      if (!this.timer) {
-        this.timer = interval(1000).subscribe(() => {
-          this.ngZone.run(() => this.changeDetRef.markForCheck());
-        });
-      }
-    });
-
     return this.timeAgo(value);
   }
 

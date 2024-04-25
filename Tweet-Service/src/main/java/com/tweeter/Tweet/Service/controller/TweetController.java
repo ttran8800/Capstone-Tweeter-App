@@ -68,4 +68,34 @@ public class TweetController {
         }
         return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
     }
+
+    @GetMapping("/{parentTweetId}/allReply")
+    public ResponseEntity<List<TweetWithUserHandlePayload>> getAllTweetReplyByParentTweet(@PathVariable("parentTweetId") Long parentTweetId, @RequestHeader("Authorization") String authHeader) {
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            ResponseEntity<String> response = authenticationService.validateToken(authHeader);
+            if (response.getStatusCode() == HttpStatus.OK) {
+                log.info("right before call tweet service 1");
+                List<TweetWithUserHandlePayload> payloadList = tweetService.getAllTweetReplyByParentTweetId(parentTweetId);
+                log.info("right after getting payloadList, in tweet controller 2");
+                return new ResponseEntity<>(payloadList, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+    }
+
+    @GetMapping("/{tweetId}/getTweetById")
+    public ResponseEntity<TweetWithUserHandlePayload> getTweetByTweetId(@PathVariable("tweetId") Long tweetId, @RequestHeader("Authorization") String authHeader) {
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            ResponseEntity<String> response = authenticationService.validateToken(authHeader);
+            if (response.getStatusCode() == HttpStatus.OK) {
+                log.info("right before call tweet service");
+                TweetWithUserHandlePayload payload = tweetService.getTweetByTweetId(tweetId);
+                log.info("right after getting payload, in tweet controller");
+                return new ResponseEntity<>(payload, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+    }
 }

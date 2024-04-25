@@ -16,6 +16,8 @@ import { TweetPostComponent } from './components/tweet-post/tweet-post.component
 import { CurrentUserAllTweetsComponent } from './components/current-user-all-tweets/current-user-all-tweets.component';
 import { TimeAgoPipe } from './pipes/timeAgo.pipe';
 import { GetAllTweetsComponent } from './components/get-all-tweets/get-all-tweets.component';
+import { TweetReplyComponent } from './pages/tweet-reply/tweet-reply.component';
+import { TweetReplyListComponent } from './components/tweet-reply-list/tweet-reply-list.component';
 
 
 @NgModule({
@@ -31,6 +33,8 @@ import { GetAllTweetsComponent } from './components/get-all-tweets/get-all-tweet
     TimeAgoPipe,
     CurrentUserAllTweetsComponent,
     GetAllTweetsComponent,
+    TweetReplyComponent,
+    TweetReplyListComponent,
   ],
   imports: [
     BrowserModule,

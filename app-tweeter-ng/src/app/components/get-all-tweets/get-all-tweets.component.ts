@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AllTweetPayload } from 'src/app/payloads/all-tweet-payload.payload';
 import { Subscription } from 'rxjs';
 import { TweetService } from 'src/app/services/tweet.service';
+import { ITweet } from 'src/app/models/tweet.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-get-all-tweets',
@@ -15,7 +17,8 @@ export class GetAllTweetsComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
 
-  constructor(private tweetService: TweetService) { }
+  constructor(private tweetService: TweetService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.subscription.add(
@@ -32,5 +35,11 @@ export class GetAllTweetsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  onTweetBoxClick(reply: ITweet) {
+    localStorage.setItem('tweetId', `${reply.tweetId}`);
+    localStorage.setItem('parentTweetId', '0');
+    this.router.navigateByUrl('/tweet-reply-page');
   }
 }
