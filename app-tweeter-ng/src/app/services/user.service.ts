@@ -15,27 +15,15 @@ export class UserService {
   public user$: Observable<IUser | null> = this.userSubject.asObservable();
 
   constructor(private http: HttpClient,
-              private tweetService: TweetService,
-              private authService: AuthService) {
-    this.initializeUser();
-  }
-
-  private BASE_URL = 'http://localhost:9000/api/v1.0/tweets/user-service';
-
-  private initializeUser(): void {
-    const token = localStorage.getItem('token');
-    if (token) {
-      this.authService.validateToken().subscribe({
-        next: () => {
-          this.getUser();
-        },
-        error: (error) => {
-          console.log('Error validating token:', error);
-          localStorage.removeItem('token');
-        }
-      })
+    private tweetService: TweetService,
+    private authService: AuthService) {
+    if (localStorage.getItem('token')) {
+      this.getUser();
     }
   }
+
+
+  private BASE_URL = 'http://localhost:9000/api/v1.0/tweets/user-service';
 
   getUser(): void {
     this.http.get<IUser>(`${this.BASE_URL}/users/loggedInUser`).subscribe({
@@ -46,6 +34,7 @@ export class UserService {
       error: (error) => {
         console.log('Error fetching user:', error);
         this.userSubject.next(null);
+        localStorage.removeItem('token');
       }
     });
   }

@@ -32,6 +32,8 @@ export class TweetPostComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.clockService.getClock().subscribe(time => { this.currentTime = time })
     )
+    localStorage.removeItem('parentTweetId');
+    localStorage.removeItem('tweetId');
   };
 
   ngOnDestroy(): void {
@@ -56,11 +58,11 @@ export class TweetPostComponent implements OnInit, OnDestroy {
         const newTweet: ITweet = {
           date: currentDate,
           message: message!,
-          userId: this.user?.id!
+          userId: this.user?.id!,
+          parentTweetId: null
         };
         this.tweetService.createTweet(newTweet, this.user!.id!);
       });
     }
   }
-
 }
