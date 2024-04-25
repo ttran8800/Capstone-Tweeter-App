@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IUser } from '../models/user.model';
 import { TweetService } from './tweet.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,16 +15,25 @@ export class UserService {
   public user$: Observable<IUser | null> = this.userSubject.asObservable();
 
   constructor(private http: HttpClient,
-              private tweetService: TweetService) {
+              private tweetService: TweetService,
+              private authService: AuthService) {
     this.initializeUser();
   }
 
-  private BASE_URL = 'http://user-service:9000/api/v1.0/tweets/user-service';
+  private BASE_URL = 'http://localhost:9000/api/v1.0/tweets/user-service';
 
   private initializeUser(): void {
     const token = localStorage.getItem('token');
     if (token) {
-      this.getUser();
+      this.authService.validateToken().subscribe({
+        next: () => {
+          this.getUser();
+        },
+        error: (error) => {
+          console.log('Error validating token:', error);
+          localStorage.removeItem('token');
+        }
+      })
     }
   }
 

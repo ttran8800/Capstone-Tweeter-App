@@ -133,6 +133,7 @@ services:
       - "9004:9004"
   
   app-tweeter-ng:
+    image: ttran8800/ng-tweeter:latest
     build: ./app-tweeter-ng
     container_name: ng-tweeter
     ports:
@@ -140,8 +141,6 @@ services:
     depends_on:
       api-gateway:
         condition: service_healthy
-    volumes:
-      - /app/node_modules
 
 volumes:
   mysql-user-data:

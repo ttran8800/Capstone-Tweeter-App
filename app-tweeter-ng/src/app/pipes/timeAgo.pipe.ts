@@ -3,9 +3,10 @@ import { interval, Subscription } from 'rxjs';
 
 @Pipe({
   name: 'timeAgo',
-  pure: false  // This is important for updating the value in the template automatically
+  pure: false
 })
 export class TimeAgoPipe implements PipeTransform, OnDestroy {
+  
   private timer!: Subscription;
 
   constructor(private ngZone: NgZone, private changeDetRef: ChangeDetectorRef) {}

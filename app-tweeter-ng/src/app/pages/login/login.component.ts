@@ -4,7 +4,7 @@ import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LoginRequestPayload } from 'src/app/payloads/login-request-payload.payload';
-import { LoginResponsePayload } from 'src/app/payloads/login-response-payload.payload';
+import { TweetService } from 'src/app/services/tweet.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +21,8 @@ export class LoginComponent {
   constructor(private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private userService: UserService) {
+    private userService: UserService,
+    private tweetService: TweetService) {
 
   }
   loginForm = this.fb.group({
@@ -52,6 +53,7 @@ export class LoginComponent {
             this.loginForm.reset();
             this.isLogin = true;
             this.userService.getUser();
+            this.tweetService.getAllTweetWithHandle();
             const interval = setInterval(() => {
               this.countdown--;
               if (this.countdown === 0) {

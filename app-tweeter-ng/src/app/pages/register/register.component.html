@@ -9,9 +9,11 @@
             <hr>
             <form [formGroup]="registerForm" (submit)="onSubmit()">
                 <div class="form-group">
-                    <label>First Name</label>
-                    <input type="text" class="form-control" formControlName="firstName"
-                        [class.is-invalid]="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
+                    <label>
+                        First Name
+                        <input type="text" class="form-control" formControlName="firstName"
+                            [class.is-invalid]="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
+                    </label>
                     <div *ngIf="firstName?.errors && firstName?.touched">
                         <small class="text-danger" *ngIf="firstName?.errors?.['required']">First name is
                             required</small>
@@ -20,9 +22,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Last Name</label>
-                    <input type="text" class="form-control" formControlName="lastName"
-                        [class.is-invalid]="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
+                    <label>
+                        Last Name
+                        <input type="text" class="form-control" formControlName="lastName"
+                            [class.is-invalid]="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
+                    </label>
                     <div *ngIf="lastName?.errors && lastName?.touched">
                         <small class="text-danger" *ngIf="lastName?.errors?.['required']">Last name is required</small>
                         <small class="text-danger" *ngIf="lastName?.errors?.['minlength']">Last name must be 2
@@ -30,9 +34,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Login ID</label>
-                    <input type="text" class="form-control" formControlName="loginId"
-                        [class.is-invalid]="registerForm.get('loginId')?.invalid && registerForm.get('loginId')?.touched">
+                    <label>
+                        Login ID
+                        <input type="text" class="form-control" formControlName="loginId"
+                            [class.is-invalid]="registerForm.get('loginId')?.invalid && registerForm.get('loginId')?.touched">
+                    </label>
                     <div *ngIf="loginId?.errors && loginId?.touched">
                         <small class="text-danger" *ngIf="loginId?.errors?.['required']">LoginId is required</small>
                         <small class="text-danger" *ngIf="loginId?.errors?.['minlength']">LoginId must be 2 characters
@@ -40,18 +46,22 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Email</label>
-                    <input type="text" class="form-control" formControlName="email"
-                        [class.is-invalid]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+                    <label>
+                        Email
+                        <input type="text" class="form-control" formControlName="email"
+                            [class.is-invalid]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+                    </label>
                     <div *ngIf="email?.errors && email?.touched">
                         <small class="text-danger" *ngIf="email?.errors?.['required']">Email is required</small>
                         <small class="text-danger" *ngIf="email?.errors?.['email']">Email is not valid</small>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Contact Number</label>
-                    <input type="text" class="form-control" formControlName="contactNumber"
+                    <label>
+                        Contact Number
+                        <input type="text" class="form-control" formControlName="contactNumber"
                         [class.is-invalid]="registerForm.get('contactNumber')?.invalid && registerForm.get('contactNumber')?.touched">
+                    </label>
                     <div *ngIf="contactNumber?.errors && contactNumber?.touched">
                         <small class="text-danger" *ngIf="contactNumber?.errors?.['required']">Contact number is
                             required</small>
@@ -60,9 +70,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" formControlName="password"
+                    <label>
+                        Password
+                        <input type="password" class="form-control" formControlName="password"
                         [class.is-invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+                    </label>
                     <div *ngIf="password?.errors && password?.touched">
                         <small class="text-danger" *ngIf="password?.errors?.['required']">Password is required</small>
                         <small class="text-danger" *ngIf="password?.errors?.['minlength']">Password must be 6 characters
@@ -70,9 +82,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Confirm Password</label>
-                    <input type="password" class="form-control" formControlName="confirmPassword"
+                    <label>
+                        Confirm Password
+                        <input type="password" class="form-control" formControlName="confirmPassword"
                         [class.is-invalid]="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched">
+                    </label>
                     <div *ngIf="confirmPassword?.errors && confirmPassword?.touched">
                         <small class="text-danger" *ngIf="confirmPassword?.errors?.['required']">Password is
                             required</small>
