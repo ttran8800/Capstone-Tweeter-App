@@ -3,8 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IUser } from '../models/user.model';
 import { TweetService } from './tweet.service';
-import { AuthService } from './auth.service';
-
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,14 +14,15 @@ export class UserService {
   public user$: Observable<IUser | null> = this.userSubject.asObservable();
 
   constructor(private http: HttpClient,
-    private tweetService: TweetService,
-    private authService: AuthService) {
+              private tweetService: TweetService,
+              private router: Router) {
     if (localStorage.getItem('token')) {
       this.getUser();
     }
   }
 
 
+  // private BASE_URL = 'http://3.145.138.133:9000/api/v1.0/tweets/user-service';
   private BASE_URL = 'http://localhost:9000/api/v1.0/tweets/user-service';
 
   getUser(): void {
@@ -35,6 +35,7 @@ export class UserService {
         console.log('Error fetching user:', error);
         this.userSubject.next(null);
         localStorage.removeItem('token');
+        this.router.navigateByUrl('/home');
       }
     });
   }

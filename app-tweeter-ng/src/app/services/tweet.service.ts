@@ -27,7 +27,9 @@ export class TweetService implements OnInit, OnDestroy {
   private reloadTrigger: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
 
+  // private BASE_URL = 'http://3.145.138.133:9000/api/v1.0/tweets/tweet-service'
   private BASE_URL = 'http://localhost:9000/api/v1.0/tweets/tweet-service'
+
 
   constructor(private http: HttpClient,
     private injector: Injector) {
