@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IUser } from 'src/app/models/user.model';
-import { Subscription, take } from 'rxjs';
+import { Subscription, map, switchMap, take } from 'rxjs';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { TweetService } from 'src/app/services/tweet.service';
@@ -16,6 +16,12 @@ import { ITweet } from 'src/app/models/tweet.model';
 export class TweetPostComponent implements OnInit, OnDestroy {
 
   currentTime?: Date;
+
+  message = ''
+  alertClass = ''
+  countdown: number = 2;
+
+  submitHandlerEnabled: boolean = true;
 
   user: IUser | null = null;
   private subscription: Subscription = new Subscription();
@@ -51,6 +57,32 @@ export class TweetPostComponent implements OnInit, OnDestroy {
     const currentLength = this.tweetMessage?.value?.length || 0;
   }
 
+  // onSubmitHandler() {
+  //   if (this.tweetForm.valid) {
+  //     const message = this.tweetForm.get('tweetMessage')!.value;
+  //     this.clockService.getClock().pipe(take(1)).subscribe(currentDate => {
+  //       const newTweet: ITweet = {
+  //         date: currentDate,
+  //         message: message!,
+  //         userId: this.user?.id!,
+  //         parentTweetId: null
+  //       };
+  //       this.tweetService.createTweet(newTweet, this.user!.id!);
+  //       this.message = 'Rely Posted';
+  //         this.alertClass = 'alert alert-success'
+  //         const interval = setInterval(() => {
+  //           this.countdown--;
+  //           if (this.countdown === 0) {
+  //             clearInterval(interval);
+  //             this.message = '';
+  //             this.alertClass = ''
+  //             this.tweetForm.reset();
+  //           }
+  //         }, 1000)
+  //     });
+  //   }
+  // }
+
   onSubmitHandler() {
     if (this.tweetForm.valid) {
       const message = this.tweetForm.get('tweetMessage')!.value;
@@ -61,7 +93,21 @@ export class TweetPostComponent implements OnInit, OnDestroy {
           userId: this.user?.id!,
           parentTweetId: null
         };
-        this.tweetService.createTweet(newTweet, this.user!.id!);
+        this.tweetService.createTweet(newTweet, this.user!.id!)
+        this.message = 'Rely Posted';
+          this.alertClass = 'alert alert-success'
+          const interval = setInterval(() => {
+            this.countdown--;            
+            if (this.countdown === 0) {
+              clearInterval(interval);
+              this.message = '';
+              this.alertClass = ''
+              this.tweetForm.reset();
+              window.location.reload();
+              this.submitHandlerEnabled = true;
+            }
+          }, 1000);
+          this.submitHandlerEnabled = false;
       });
     }
   }
