@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" onclick="return false;" href="#" >Logo</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" onclick="return false;" href="#" >Tweeter Logo</a>
+    <button class="navbar-toggler" type="button" data--toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -10,6 +10,9 @@
             <li class="nav-item active">
                 <a class="nav-link" href="#" routerLink="/home">Home</a>
             </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                </a>
             <li class="nav-item">
                 <a class="nav-link" href="#" *ngIf="checkToken()" routerLink="/current-user-all-tweet">My Tweets</a>
             </li>
@@ -20,5 +23,109 @@
             <button class="nav-link btn btn-danger" *ngIf="checkToken()" (click)="onLogout()">Logout</button>
         </div>
     </div>
-</nav>
+</nav>  -->
 
+<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" onclick="return false;" href="#">Tweeter Logo</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item active">
+                  <button type="button" class="btn btn-primary" (click)="navigateToHome()">Home</button>
+                </li>
+                <li class="nav-item active">
+                  <button type="button" class="btn btn-primary" (click)="navigateToMyTweets()">My Tweets</button> 
+                </li> 
+            </ul>
+            <div class="form-inline">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                      <button type="button" button class="btn btn-primary" [routerLink]="['/user-profile']" *ngIf="checkToken()">My Profile</button>
+
+                    </li>
+                    <li class="nav-item">
+                        <button type="button" button class="btn btn-primary" routerLink="/login" *ngIf="!checkToken()">Login</button>
+                    </li>
+                    <li class="nav-item">
+                        <button type="button"  button class="btn btn-primary" *ngIf="checkToken()" (click)="onLogout()">Logout</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+         
+
+
+
+     
+        <!-- <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">Tweeter Logo</a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0"> 
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                  </li>
+                  
+                </ul>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" ngIf="checkToken()" routerLink="/current-user-all-tweet">My Tweets</a>
+                </li>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                  </form>
+                <ul class="navbar-nav mb-2 mb-lg-0"> 
+                  <li class="nav-item">
+                    <button class="nav-link btn btn-success" routerLink="/login">Login</button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+        </nav>  -->
+        <!-- <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">Tweeter Logo</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">          
+                    <a class="nav-link" href="#">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <button class="nav-link btn btn-success" routerLink="/login">Login</button>
+                  </li>
+                </ul>
+                <form class="d-flex ms-auto"> 
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+              </div>
+            </div>
+          </nav> -->
+          
+          
+
+    
+          
+          
+        
+
+        
+          
+             
+    
+          
+          
+
+          
+         
