@@ -37,11 +37,4 @@ export class NavbarComponent {
     ngOnDestroy(): void {
       this.subscription.unsubscribe();
     }
-
-    navigateToHome(): void {
-      this.router.navigateByUrl('/home');
-    }
-    navigateToMyTweets(): void {
-      this.router.navigateByUrl('/current-user-all-tweet')
-    }
 }
