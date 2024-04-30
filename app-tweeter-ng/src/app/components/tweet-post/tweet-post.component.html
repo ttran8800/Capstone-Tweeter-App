@@ -10,7 +10,7 @@
         </div>
         <div class="col-sm-8">
             <div class="card">
-                <div class="card-body">
+                <div class="card-body {{alertClass}}" role="alert">
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="avator-container">
@@ -29,7 +29,7 @@
                             <div class="row form-group">
                                 <div class="col-sm-12">
                                     <label>
-                                        Message
+                                        Message: {{message}}
                                         <textarea rows="2" cols="55" id="textarea-tweetmessage"
                                             class="form-control tweet-message-box" formControlName="tweetMessage"
                                             [class.is-invalid]="tweetForm.get('tweetMessage')?.invalid && tweetForm.get('tweetMessage')?.touched"
@@ -48,7 +48,7 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div>
-                                        <button type="submit" class="btn btn-primary btn-block"
+                                        <button type="submit" [disabled]="!submitHandlerEnabled" class="btn btn-primary btn-block"
                                             [disabled]="tweetForm.invalid">Post</button>
                                     </div>
                                 </div>

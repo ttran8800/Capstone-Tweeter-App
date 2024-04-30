@@ -56,7 +56,3 @@ eureka:
   client:
     service-url:
       defaultZone: http://server-registry:8761/eureka
-
-logging:
-  level:
-    org.springframework.web.cors: DEBUG

@@ -5,7 +5,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { UserProfileComponent } from "./pages/user-profile/user-profile.component";
 import { CurrentUserAllTweetsComponent } from './components/current-user-all-tweets/current-user-all-tweets.component';
-
+import { TweetReplyComponent } from './pages/tweet-reply/tweet-reply.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'current-user-all-tweet', component: CurrentUserAllTweetsComponent },
   { path: 'user-profile', component: UserProfileComponent },
+  { path: 'tweet-reply-page', component: TweetReplyComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 

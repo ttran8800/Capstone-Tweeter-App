@@ -47,7 +47,6 @@ services:
 
   server-registry:
     image: ttran8800/server-registry:latest
-    build: ./server-registry
     container_name: server-registry
     ports:
       - "8761:8761"
@@ -59,7 +58,6 @@ services:
 
   api-gateway:
     image: ttran8800/api-gateway:latest
-    build: ./api-gateway
     container_name: api-gateway
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/actuator/health"]
@@ -74,7 +72,6 @@ services:
 
   user-service:
     image: ttran8800/user-service:latest
-    build: ./user-service
     container_name: user-service
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9001/actuator/health"]
@@ -89,7 +86,6 @@ services:
 
   tweet-service:
     image: ttran8800/tweet-service:latest
-    build: ./tweet-service
     container_name: tweet-service
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9002/actuator/health"]
@@ -104,7 +100,6 @@ services:
   
   tag-service:
     image: ttran8800/tag-service:latest
-    build: ./tag-service
     container_name: tag-service
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9003/actuator/health"]
@@ -119,7 +114,6 @@ services:
 
   tweet-tag-service:
     image: ttran8800/tweet-tag-service:latest
-    build: ./tweet-tag-service
     container_name: tweet-tag-service
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9004/actuator/health"]
@@ -134,7 +128,6 @@ services:
   
   app-tweeter-ng:
     image: ttran8800/ng-tweeter:latest
-    build: ./app-tweeter-ng
     container_name: ng-tweeter
     ports:
       - "4200:80"

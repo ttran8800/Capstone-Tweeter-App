@@ -1,14 +1,14 @@
 <div class="row">
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
-        <h1 class="title">ALL USER TWEETS</h1>
+        <h1 class="title">ALL TWEETS REPLIES</h1>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
         <div class="card" *ngFor="let tweets of allTweetPayload">
-            <div class="card-body tweet-box" (click)="onTweetBoxClick(tweets.tweet)">
+            <div class="card-body tweet-box">
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="avator-container">

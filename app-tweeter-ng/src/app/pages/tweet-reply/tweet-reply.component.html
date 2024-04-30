@@ -1,0 +1,85 @@
+<div class="row mt-4">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+        <h1 class="title">PARENT TWEET</h1>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-sm-2">
+    </div>
+    <div class="col-sm-8">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="avator-container">
+                            <img class="avator" src="assets/img/player.png" alt="">
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="row justify-content-between mb-4" *ngIf="tweet && tweet.date">
+                            <div class="col-auto">
+                                <label class="tweet-handle">@{{userHandle}}</label>
+                            </div>
+                            <div class="col-auto">
+                                <label>{{tweet.date | timeAgo }}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 mb-2">
+                                <label for="">Tweet Message:</label>
+                            </div>
+                        </div>
+                        <div class="row mb-4 tweet-messages">
+                            <div class="col-sm-12">
+                                <p>{{tweet?.message}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <button type="button" class="btn btn-primary btn-block"
+                                    (click)="onReplyBtnClick()">Reply</button>
+                            </div>
+                        </div>
+                        <div class="wrapper mt-5" *ngIf="isReplyMessageBox">
+                            <div class="row justify-content-between">
+                                <div class="col-auto">
+                                    <label for="">Reply To Tweet: {{message}}</label>
+                                </div>
+                                <div class="col-auto">
+                                    <button type="button" class="btn btn-danger"
+                                        (click)="onCancelBtnClick()">Cancel</button>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-sm-12">
+                                    <form [formGroup]="tweetReplyForm" (submit)="onSubmitBtnClick()">
+                                        <div class="form-group {{alertClass}}" role="alert">
+                                            <textarea class="form-control" formControlName="replyMessage"
+                                                [class.is-invalid]="tweetReplyForm.get('replyMessage')?.invalid && tweetReplyForm.get('replyMessage')?.touched"
+                                                maxlength="50" (input)="checkLength()"></textarea>
+                                        </div>
+                                        <div *ngIf="replyMessage?.errors && replyMessage?.touched">
+                                            <small class="text-danger" *ngIf="replyMessage?.errors?.['required']">Tweet
+                                                must contain message</small>
+                                        </div>
+                                        <div *ngIf="replyMessage?.value?.length === 50">
+                                            <small class="text-danger">Maximum character length reached</small>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <button type="submit" class="btn btn-primary btn-block"
+                                                    [disabled]="tweetReplyForm.invalid">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-tweet-reply-list></app-tweet-reply-list>

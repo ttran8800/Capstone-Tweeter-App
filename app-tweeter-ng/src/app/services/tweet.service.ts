@@ -24,14 +24,27 @@ export class TweetService implements OnInit, OnDestroy {
 
   private _dataService: UserService | null = null;
 
+  private reloadTrigger: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+
+  // private BASE_URL = 'http://3.145.138.133:9000/api/v1.0/tweets/tweet-service'
   private BASE_URL = 'http://localhost:9000/api/v1.0/tweets/tweet-service'
 
+
   constructor(private http: HttpClient,
-              private injector: Injector) {
-                if (localStorage.getItem('token')) {
-                  this.getAllTweetWithHandle();
-                }
-               }
+    private injector: Injector) {
+    if (localStorage.getItem('token')) {
+      this.getAllTweetWithHandle();
+    }
+  }
+
+  triggerReload() {
+    this.reloadTrigger.next(true);
+  }
+
+  getReloadTrigger(): Observable<boolean> {
+    return this.reloadTrigger.asObservable();
+  }
 
 
   private getDataService(): UserService {
@@ -40,23 +53,23 @@ export class TweetService implements OnInit, OnDestroy {
     }
     return this._dataService;
   }
-  
+
   ngOnInit(): void {
-      this.subscription.add(
-        this.getDataService().user$.subscribe(user => {
-          this.user = user;
-        })
-      )
+    this.subscription.add(
+      this.getDataService().user$.subscribe(user => {
+        this.user = user;
+      })
+    )
   }
-  
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  createTweet(tweet: ITweet, userId: number): void {
+  createTweet(tweet: ITweet, userId: number) {
     this.http.post<ITweet>(`${this.BASE_URL}/${userId}/addTweet`, tweet).subscribe({
       next: () => {
-        this.subscription.add(this.getDataService().user$.subscribe(user => {this.user = user}))
+        this.subscription.add(this.getDataService().user$.subscribe(user => { this.user = user }))
         this.getAllUserTweet(this.user!.id!);
         this.getAllTweetWithHandle();
       },
@@ -83,4 +96,14 @@ export class TweetService implements OnInit, OnDestroy {
       error: (error) => console.log(error)
     });
   }
+
+  getTweetByTweetId(tweetId: number) {
+    return this.http.get<AllTweetPayload>(`${this.BASE_URL}/${tweetId}/getTweetById`)
+  }
+
+  getAllTweetReply(tweetId: number) {
+    return this.http.get<AllTweetPayload[]>(`${this.BASE_URL}/${tweetId}/allReply`)
+  }
+
+
 }

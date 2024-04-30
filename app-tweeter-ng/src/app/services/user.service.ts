@@ -3,8 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IUser } from '../models/user.model';
 import { TweetService } from './tweet.service';
-import { AuthService } from './auth.service';
-
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,26 +15,15 @@ export class UserService {
 
   constructor(private http: HttpClient,
               private tweetService: TweetService,
-              private authService: AuthService) {
-    this.initializeUser();
-  }
-
-  private BASE_URL = 'http://localhost:9000/api/v1.0/tweets/user-service';
-
-  private initializeUser(): void {
-    const token = localStorage.getItem('token');
-    if (token) {
-      this.authService.validateToken().subscribe({
-        next: () => {
-          this.getUser();
-        },
-        error: (error) => {
-          console.log('Error validating token:', error);
-          localStorage.removeItem('token');
-        }
-      })
+              private router: Router) {
+    if (localStorage.getItem('token')) {
+      this.getUser();
     }
   }
+
+
+  // private BASE_URL = 'http://3.145.138.133:9000/api/v1.0/tweets/user-service';
+  private BASE_URL = 'http://localhost:9000/api/v1.0/tweets/user-service';
 
   getUser(): void {
     this.http.get<IUser>(`${this.BASE_URL}/users/loggedInUser`).subscribe({
@@ -46,6 +34,8 @@ export class UserService {
       error: (error) => {
         console.log('Error fetching user:', error);
         this.userSubject.next(null);
+        localStorage.removeItem('token');
+        this.router.navigateByUrl('/home');
       }
     });
   }
