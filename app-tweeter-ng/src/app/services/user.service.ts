@@ -22,9 +22,9 @@ export class UserService {
   }
 
 
-  private BASE_URL = 'http://18.223.180.29:9000/api/v1.0/tweets/user-service';
-  // private BASE_URL = 'http://localhost:9000/api/v1.0/tweets/user-service';
-  // private BASE_URL = 'http://api-gateway:31872/api/v1.0/tweets/user-service';
+  // private BASE_URL = 'http://52.14.237.71:9000/api/v1.0/tweets/user-service';
+  private BASE_URL = 'http://localhost:9000/api/v1.0/tweets/user-service';
+  // private BASE_URL = 'http://api-gateway:9000/api/v1.0/tweets/user-service';
 
   getUser(): void {
     this.http.get<IUser>(`${this.BASE_URL}/users/loggedInUser`).subscribe({
