@@ -10,10 +10,8 @@ import { LoginResponsePayload } from '../payloads/login-response-payload.payload
 })
 export class AuthService {
 
-  private Auth_URL = 'http://18.223.180.29.133:9000/api/v1.0/tweets/auth-service';
-  // private Auth_URL = 'http://localhost:9000/api/v1.0/tweets/auth-service';
-  // private Auth_URL = 'http://api-gateway:31872/api/v1.0/tweets/auth-service';
-
+  // private Auth_URL = 'http://3.145.138.133:9000/api/v1.0/tweets/auth-service';
+  private Auth_URL = 'http://localhost:9000/api/v1.0/tweets/auth-service';
 
 
   constructor(private http: HttpClient) { }

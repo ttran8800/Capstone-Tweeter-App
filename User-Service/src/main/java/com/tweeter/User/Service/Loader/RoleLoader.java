@@ -16,11 +16,15 @@ public class RoleLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         try {
-            if (!roleRepository.existsByName("USER")) {
-                Role role = new Role();
-                role.setName("USER");
-                roleRepository.save(role);
-            }
+
+            Role role = roleRepository.findByName("USER").orElseGet(() -> {
+                Role newRole = new Role();
+                newRole.setName("USER");
+                return newRole;
+            });
+
+            roleRepository.save(role);
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
